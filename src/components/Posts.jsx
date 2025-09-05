@@ -36,20 +36,24 @@ export const Posts = () => {
 
   return (
     <section className="section-post">
-      <h2>Create post</h2>
-      <input
-        type="text"
-        placeholder="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <textarea
-        placeholder="enter content here"
-        type="text"
-        value={body}
-        onChange={(e) => setbody(e.target.value)}
-      />
-      <button onClick={createPostData}>Add Post</button>
+      <div className="creator">
+        <h2>Create post</h2>
+        <div className="input">
+          <input
+            type="text"
+            placeholder="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <textarea
+            placeholder="enter content here"
+            type="text"
+            value={body}
+            onChange={(e) => setbody(e.target.value)}
+          />
+          <button onClick={createPostData}>Add Post</button>
+        </div>
+      </div>
       <ul>
         {posts.map((curElement) => {
           const { id, body, title } = curElement;
