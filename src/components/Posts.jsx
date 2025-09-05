@@ -17,10 +17,10 @@ export const Posts = () => {
     }
   };
   const createPostData = async () => {
-    // if (!title.trim() || !body.trim()) {
-    //   alert("both title and body are required for a post");
-    //   return;
-    // }
+    if (!title.trim() || !body.trim()) {
+      alert("both title and body are required for a post");
+      return;
+    }
     try {
       const res = await createPost({ title, body });
       setPosts([res.data, ...posts]);
