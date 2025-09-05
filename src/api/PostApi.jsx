@@ -7,14 +7,6 @@ const api = axios.create({
 export const getPost = () => {
   return api.get("/posts");
 };
-
-//import axios from "axios";
-// const api = axios.create({
-//   baseURL:"";
-// });
-// export const getPost = () => {
-//   return api.get("/posts");
-// }
 export const createPost = (PostData) => {
   return api.post("/posts", PostData);
 };
