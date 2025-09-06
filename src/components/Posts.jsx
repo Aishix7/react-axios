@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { getPost } from "../api/PostApi";
 import { createPost } from "../api/PostApi";
+import { DeletePost } from "../api/PostApi";
 export const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
@@ -33,7 +34,15 @@ export const Posts = () => {
   useEffect(() => {
     getPostData();
   }, []);
-
+  const deletePosts = async (id) => {
+    try {
+      const res = await DeletePost(id);
+      setPosts(posts.filter((post) => post.id !== id));
+      console.log(res);
+    } catch (error) {
+      console.log("error deleting the post", error);
+    }
+  };
   return (
     <section className="section-post">
       <div className="creator">
@@ -68,7 +77,7 @@ export const Posts = () => {
                 {body}
               </p>
               <button>Edit</button>
-              <button>Delete</button>
+              <button onClick={() => deletePosts(id)}>Delete</button>
             </li>
           );
         })}
