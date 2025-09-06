@@ -10,3 +10,7 @@ export const getPost = () => {
 export const createPost = (PostData) => {
   return api.post("/posts", PostData);
 };
+
+export const DeletePost = (id) => {
+  return api.delete(`/posts/${id}`);
+};
