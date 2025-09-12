@@ -5,6 +5,7 @@ export const Form = ({ data, setData, updateDataApi, setUpdateDataApi }) => {
     title: "",
     body: "",
   });
+  let isEmpty = Object.keys(updateDataApi).length === 0;
   useEffect(() => {
     updateDataApi &&
       setAddData({
@@ -34,9 +35,15 @@ export const Form = ({ data, setData, updateDataApi, setUpdateDataApi }) => {
       setAddData({ title: "", body: "" });
     }
   };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    addPostData();
+    const action = e.nativeEvent.submitter.value;
+    if (action === "Add") {
+      addPostData();
+    } else if (action === "Edit") {
+      updatePostData();
+    }
   };
   return (
     <form onSubmit={handleFormSubmit} action="">
@@ -64,7 +71,9 @@ export const Form = ({ data, setData, updateDataApi, setUpdateDataApi }) => {
           onChange={handleInputChange}
         />
       </div>
-      <button type="submit">Add</button>
+      <button type="submit" value={isEmpty ? "Add" : "Edit"}>
+        {isEmpty ? "Add" : "Edit"}
+      </button>
     </form>
   );
 };
