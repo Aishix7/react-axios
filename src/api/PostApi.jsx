@@ -7,10 +7,11 @@ const api = axios.create({
 export const getPost = () => {
   return api.get("/posts");
 };
-export const createPost = (PostData) => {
-  return api.post("/posts", PostData);
-};
 
 export const DeletePost = (id) => {
   return api.delete(`/posts/${id}`);
+};
+
+export const PostData = (post) => {
+  return api.post("/posts", post);
 };
