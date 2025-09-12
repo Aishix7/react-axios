@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { getPost } from "../api/PostApi";
-import { createPost } from "../api/PostApi";
 import { DeletePost } from "../api/PostApi";
+import { Form } from "./Form";
+
 export const Posts = () => {
   const [posts, setPosts] = useState([]);
-  const [title, setTitle] = useState("");
-  const [body, setbody] = useState("");
 
   const getPostData = async () => {
     try {
@@ -17,23 +16,11 @@ export const Posts = () => {
       console.error("error fetching post:", error);
     }
   };
-  const createPostData = async () => {
-    if (!title.trim() || !body.trim()) {
-      alert("both title and body are required for a post");
-      return;
-    }
-    try {
-      const res = await createPost({ title, body });
-      setPosts([res.data, ...posts]);
-      setTitle("");
-      setbody("");
-    } catch (error) {
-      console.log("error creating post", error);
-    }
-  };
+
   useEffect(() => {
     getPostData();
   }, []);
+
   const deletePosts = async (id) => {
     try {
       const res = await DeletePost(id);
@@ -43,26 +30,10 @@ export const Posts = () => {
       console.log("error deleting the post", error);
     }
   };
+
   return (
     <section className="section-post">
-      <div className="creator">
-        <h2>Create post</h2>
-        <div className="input">
-          <input
-            type="text"
-            placeholder="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <textarea
-            placeholder="enter content here"
-            type="text"
-            value={body}
-            onChange={(e) => setbody(e.target.value)}
-          />
-          <button onClick={createPostData}>Add Post</button>
-        </div>
-      </div>
+      <Form data={posts} setData={setPosts} />
       <ul>
         {posts.map((curElement) => {
           const { id, body, title } = curElement;
@@ -85,21 +56,3 @@ export const Posts = () => {
     </section>
   );
 };
-
-// export const Posts()=>{
-//     const [posts,setPosts] = useState([]);
-//     const getPostData = async() =>{
-//         try{
-//         const res = await getPost();
-//         console.log(res.data);
-//         setPosts(res.data);
-//         }
-//         catch(error){
-//             console.log("error occured",error);
-//         }
-
-//     }
-//     useEffect(()=>{
-//         getPostData();
-//     },[])
-// }
