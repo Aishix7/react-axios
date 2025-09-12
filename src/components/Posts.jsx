@@ -6,6 +6,7 @@ import { Form } from "./Form";
 
 export const Posts = () => {
   const [posts, setPosts] = useState([]);
+  const [UpdateDataApi, setUpdateDataApi] = useState({});
 
   const getPostData = async () => {
     try {
@@ -30,10 +31,15 @@ export const Posts = () => {
       console.log("error deleting the post", error);
     }
   };
-
+  const UpdatePosts = (curElement) => setUpdateDataApi(curElement);
   return (
     <section className="section-post">
-      <Form data={posts} setData={setPosts} />
+      <Form
+        data={posts}
+        setData={setPosts}
+        updateDataApi={UpdateDataApi}
+        setUpdateDataApi={setUpdateDataApi}
+      />
       <ul>
         {posts.map((curElement) => {
           const { id, body, title } = curElement;
@@ -47,7 +53,7 @@ export const Posts = () => {
                 <b>Content:</b>
                 {body}
               </p>
-              <button>Edit</button>
+              <button onClick={() => UpdatePosts(curElement)}>Edit</button>
               <button onClick={() => deletePosts(id)}>Delete</button>
             </li>
           );
